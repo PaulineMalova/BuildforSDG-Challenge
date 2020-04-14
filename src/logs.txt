@@ -1,18 +1,13 @@
-1586779944 		 on-covid-19 		 done in 0.00018 seconds
-1586779947 		 on-covid-19 		 done in 0.00019 seconds
-1586779947 		 on-covid-19 		 done in 0.00013 seconds
-1586779948 		 on-covid-19 		 done in 0.00013 seconds
-1586779950 		 on-covid-19 		 done in 0.00013 seconds
-1586779956 		 on-covid-19/json 		 done in 0.0002 seconds
-1586779957 		 on-covid-19/json 		 done in 0.0002 seconds
-1586779959 		 on-covid-19/json 		 done in 0.00018 seconds
-1586779960 		 on-covid-19/json 		 done in 0.00013 seconds
-1586779960 		 on-covid-19/json 		 done in 0.0002 seconds
-1586779966 		 on-covid-19/xml 		 done in 0.00636 seconds
-1586779968 		 on-covid-19/xml 		 done in 0.00252 seconds
-1586779970 		 on-covid-19/xml 		 done in 0.00634 seconds
-1586779971 		 on-covid-19/xml 		 done in 0.00252 seconds
-1586779972 		 on-covid-19/xml 		 done in 0.00314 seconds
-1586848724 		 on-covid-19 		 done in 0.00024 seconds
-1586849075 		 on-covid-19 		 done in 0.00013 seconds
-1586849227 		 on-covid-19 		 done in 0.00016 seconds
+GET             /api/v1/on-covid-19/logs             200               0ms
+GET             /api/v1/on-covid-19/logs             200               0ms
+GET             /api/v1/on-covid-19/logs             200               0ms
+GET             /api/v1/on-covid-19/logs             200               0ms
+GET             /api/v1/on-covid-19/logs             200               0ms
+POST            /api/v1/on-covid-19/json             200               0ms
+POST            /api/v1/on-covid-19/json             200               0ms
+POST            /api/v1/on-covid-19/json             200               0ms
+POST            /api/v1/on-covid-19/xml             200               6ms
+POST            /api/v1/on-covid-19/xml             200               6ms
+POST            /api/v1/on-covid-19             200               0ms
+POST            /api/v1/on-covid-19             200               0ms
+GET             /api/v1/on-covid-19/logs             200               0ms

@@ -1,5 +1,4 @@
 import math
-from datetime import datetime
 
 
 def estimator(data):
@@ -21,11 +20,11 @@ def calculate_impact(data):
     impact = {}
     impact["currentlyInfected"] = data["reportedCases"] * 10
     days = get_period_type_in_days(data)
-    factor = int(days / 3)
-    impact["infectionsByRequestedTime"] = int(
+    factor = math.trunc(days / 3)
+    impact["infectionsByRequestedTime"] = math.trunc(
         impact["currentlyInfected"] * (2 ** factor)
     )
-    impact["severeCasesByRequestedTime"] = int(
+    impact["severeCasesByRequestedTime"] = math.trunc(
         0.15 * impact["infectionsByRequestedTime"]
     )
     impact[
@@ -33,10 +32,10 @@ def calculate_impact(data):
     ] = get_hospital_beds_by_requested_time(
         data, impact["severeCasesByRequestedTime"]
     )
-    impact["casesForICUByRequestedTime"] = (
+    impact["casesForICUByRequestedTime"] = math.trunc(
         0.05 * impact["infectionsByRequestedTime"]
     )
-    impact["casesForVentilatorsByRequestedTime"] = (
+    impact["casesForVentilatorsByRequestedTime"] = math.trunc(
         0.02 * impact["infectionsByRequestedTime"]
     )
     impact["dollarsInFlight"] = calculate_dollars_in_flight(
@@ -49,11 +48,11 @@ def calculate_severe_impact(data):
     severeImpact = {}
     severeImpact["currentlyInfected"] = data["reportedCases"] * 50
     days = get_period_type_in_days(data)
-    factor = int(days / 3)
-    severeImpact["infectionsByRequestedTime"] = int(
+    factor = math.trunc(days / 3)
+    severeImpact["infectionsByRequestedTime"] = math.trunc(
         severeImpact["currentlyInfected"] * (2 ** factor)
     )
-    severeImpact["severeCasesByRequestedTime"] = int(
+    severeImpact["severeCasesByRequestedTime"] = math.trunc(
         0.15 * severeImpact["infectionsByRequestedTime"]
     )
     severeImpact[
@@ -61,10 +60,10 @@ def calculate_severe_impact(data):
     ] = get_hospital_beds_by_requested_time(
         data, severeImpact["severeCasesByRequestedTime"]
     )
-    severeImpact["casesForICUByRequestedTime"] = (
+    severeImpact["casesForICUByRequestedTime"] = math.trunc(
         0.05 * severeImpact["infectionsByRequestedTime"]
     )
-    severeImpact["casesForVentilatorsByRequestedTime"] = (
+    severeImpact["casesForVentilatorsByRequestedTime"] = math.trunc(
         0.02 * severeImpact["infectionsByRequestedTime"]
     )
     severeImpact["dollarsInFlight"] = calculate_dollars_in_flight(
@@ -81,12 +80,12 @@ def get_period_type_in_days(data):
         days = data["timeToElapse"] * 7
     elif data["periodType"] == "months":
         days = data["timeToElapse"] * 30
-    return days
+    return math.trunc(days)
 
 
 def get_hospital_beds_by_requested_time(data, cases):
     available_beds_for_covid = data["totalHospitalBeds"] * 0.35
-    return int(available_beds_for_covid - cases)
+    return math.trunc(available_beds_for_covid - cases)
 
 
 def calculate_dollars_in_flight(data, infections_by_requested_time, days):
@@ -104,9 +103,12 @@ def calculate_dollars_in_flight(data, infections_by_requested_time, days):
 
 
 def format_time_logs(request_time_data):
-    time_stamp = int(datetime.now().timestamp())
     url = request_time_data["path"]
-    time = round(request_time_data["time"], 5)
-    request_time = f"{time_stamp} \t\t on-{url} \t\t done in {time} seconds"
+    time = math.trunc(request_time_data["time"] * 1000)
+    method = request_time_data["method"]
+    status_code = request_time_data["status_code"]
+    request_time = "{: <15} {: >15} {: >15} {: >15}ms".format(
+        method, url, status_code, time
+    )
     with open("src/logs.txt", "a") as logs_file:
         logs_file.write(f"{request_time}\n")
